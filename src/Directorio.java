@@ -6,19 +6,18 @@ public class Directorio {
     public Directorio(){
     }
 
-    public ArrayList<Contacto> getPersonas() {
-        return personas;
-    }
 
 
-    public void mostrarDirectorio(){
+    public String mostrarDirectorio(){
         int posicion=1;
+        String mensaje="";
         for(Contacto C : personas){
-            System.out.println(posicion + ".  "+C.getNombre()+"\n"+
+            mensaje= ("\n"+posicion + ".  "+C.getNombre()+"\n"+
                                 "   Telefono: "+C.getTelefono()+"\n"+
                                 "   Correo: "+C.getCorreo()+"\n");
             posicion++;
         }
+        return mensaje;
     }
 
     public void agregarPersona(String name, String telefono, String correo){
