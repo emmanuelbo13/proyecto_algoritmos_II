@@ -25,6 +25,26 @@ public class Directorio {
 
     }
 
+    public Contacto buscarPersonaNombre(String nombre) throws NoExisteException {
+        for (Contacto c : personas) {
+            if (c.getNombre().equals(nombre)) {
+                return c;
+            }
+        }
+
+        throw new NoExisteException("El usuario no existe");
+    }
+    public Contacto buscarPersonaNumero(String numero) throws NoExisteException {
+        for (Contacto c : personas) {
+            if (c.getTelefono().equals(numero)) {
+                return c;
+            }
+        }
+
+        throw new NoExisteException("El usuario no existe");
+    }
+
+
 
 
 
