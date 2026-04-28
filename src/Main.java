@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import javax.swing.*;
+import java.awt.*;
 public class Main{
 
     private static final Pattern PATRON_CORREO = Pattern.compile(
@@ -7,28 +9,34 @@ public class Main{
     );
 
     public static void main(String[] args) {
+        Directorio agenda = new Directorio();
+        JPanel panel =new JPanel(new GridLayout(3,3));
+        JTextField txtname =new JTextField();
+        JTextField txtnum = new JTextField();
+        JTextField txtcorreo = new JTextField();
+        panel.add(new JLabel("Nombre"));
+        panel.add(txtname);
+        panel.add(new JLabel("Telefono"));
+        panel.add(txtnum);
+        panel.add(new JLabel("Correo"));
+        panel.add(txtcorreo);
+
+        int result = JOptionPane.NO_OPTION;
 
         do {
             try{
-                Scanner Consola = new Scanner(System.in);
-                Directorio agenda = new Directorio();
-                System.out.println("Bienvenido: Ingrese un nuevo conacto ");
-                System.out.print("Ingrese el nombre del contacto: ");
-                String name = Consola.nextLine();
-                System.out.print("Ingrese el telefono  del contacto con indicativo (+) :");
-                String telefono = Consola.nextLine();
-                validarNumero(telefono);
-                System.out.print("Ingrese el correo  del contacto: ");
-                String correo = Consola.nextLine();
-                validarCorreo(correo);
-                agenda.agregarPersona(name,telefono,correo);
-                System.out.println(agenda.mostrarDirectorio());
+                result=JOptionPane.showConfirmDialog(null,panel,"Bienvenido: Ingrese un nuevo conacto ", JOptionPane.OK_CANCEL_OPTION);
+                validarNumero(txtnum.getText());
+                validarCorreo(txtcorreo.getText());
+                agenda.agregarPersona(txtname.getText(),txtnum.getText(),txtcorreo.getText());
+                JOptionPane.showMessageDialog(null,agenda.mostrarDirectorio(),"",JOptionPane.INFORMATION_MESSAGE);
+                txtcorreo.setText("");txtnum.setText("");txtname.setText("");
             }catch (MalFormatoException e){
-                System.out.println(e.getMessage());
+                JOptionPane.showMessageDialog(null,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
+                txtcorreo.setText("");txtnum.setText("");txtname.setText("");
+
             }
-        }while(true);
-
-
+        }while(result==JOptionPane.YES_OPTION);
 
     }
 

@@ -12,7 +12,7 @@ public class Directorio {
         int posicion=1;
         String mensaje="";
         for(Contacto C : personas){
-            mensaje= ("\n"+posicion + ".  "+C.getNombre()+"\n"+
+            mensaje= (mensaje + "\n"+posicion + ".  "+C.getNombre()+"\n"+
                                 "   Telefono: "+C.getTelefono()+"\n"+
                                 "   Correo: "+C.getCorreo()+"\n");
             posicion++;
@@ -42,6 +42,9 @@ public class Directorio {
         }
 
         throw new NoExisteException("El usuario no existe");
+    }
+    public void odenarDirectorio(){
+
     }
 
 
