@@ -25,25 +25,55 @@ public class Directorio {
 
     }
 
-    public Contacto buscarPersonaNombre(String nombre) throws NoExisteException {
+    public String buscarPersonaNombre(String nombre) throws NoExisteException {
+        String mensaje="";
         for (Contacto c : personas) {
             if (c.getNombre().equals(nombre)) {
-                return c;
+                mensaje=mensaje+"\n Nombre: "+c.getNombre()+
+                        "\n Celular: "+c.getTelefono() +
+                        "\n Correo: "+ c.getCorreo();
+
+
+                return mensaje;
             }
+
         }
 
         throw new NoExisteException("El usuario no existe");
     }
-    public Contacto buscarPersonaNumero(String numero) throws NoExisteException {
+
+    public String buscarPersonaNumero(String numero) throws NoExisteException {
+        String mensaje="";
         for (Contacto c : personas) {
             if (c.getTelefono().equals(numero)) {
-                return c;
+                mensaje=mensaje+"\n Nombre: "+c.getNombre()+
+                        "\n Celular: "+c.getTelefono() +
+                        "\n Correo: "+ c.getCorreo();
+
+
+                return mensaje;
             }
+
         }
 
         throw new NoExisteException("El usuario no existe");
     }
+
     public void odenarDirectorio(){
+        int n = personas.size();
+        for(int i=0;i<n-1;i++){
+            for(int j=0;j<n-1;j++){
+                String Nombreactual=personas.get(j).getNombre();
+                String Nombresiguiente=personas.get(i+1).getNombre();
+                if(Nombreactual.compareToIgnoreCase(Nombresiguiente)>0){
+                    Contacto temp = personas.get(j);
+                    personas.set(j, personas.get(j + 1));
+                    personas.set(j + 1, temp);
+
+                }
+            }
+        }
+
 
     }
 

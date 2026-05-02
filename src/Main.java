@@ -9,7 +9,19 @@ public class Main{
     );
 
     public static void main(String[] args) {
+
+        JFrame ventana = new JFrame("Prueba Panel Agregar Contacto");
+
         Directorio agenda = new Directorio();
+        panelAgregarContacto panel = new panelAgregarContacto(agenda);
+
+        ventana.add(panel);
+
+        ventana.setSize(300, 160);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        /*Directorio agenda = new Directorio();
         JPanel panel =new JPanel(new GridLayout(3,3));
         JTextField txtname =new JTextField();
         JTextField txtnum = new JTextField();
@@ -36,7 +48,7 @@ public class Main{
                 txtcorreo.setText("");txtnum.setText("");txtname.setText("");
 
             }
-        }while(result==JOptionPane.YES_OPTION);
+        }while(result==JOptionPane.YES_OPTION); */
 
     }
 
