@@ -12,8 +12,10 @@ public class panelBuscarContacto  extends JPanel{
     public panelBuscarContacto(Directorio directorio) {
         this.directorio = directorio;
 
-        setLayout(new GridLayout(4, 2));
-        JLabel titulo = new JLabel("ingrese el nombre o el telefono para buscar el contacto");
+        setLayout(new GridLayout(3, 2));
+
+        setBorder(BorderFactory.createTitledBorder("Buscar contacto"));
+
         JLabel nombre = new JLabel("Nombre:");
         txtNombreaBuscar = new JTextField();
         JLabel telefono = new JLabel("Telefono:");
@@ -26,7 +28,6 @@ public class panelBuscarContacto  extends JPanel{
         limpiar.addActionListener(e -> limpiarCampos());
         buscar.addActionListener(e -> buscarContacto());
 
-        add(titulo);
         add(nombre);add(txtNombreaBuscar);
         add(telefono);add(txtNumeroaBuscar);
         add(buscar);add(limpiar);
@@ -52,15 +53,40 @@ public class panelBuscarContacto  extends JPanel{
                 }else if(!(txtNumeroaBuscar.getText().isEmpty() && !txtNombreaBuscar.getText().isEmpty())){
                     throw new IllegalArgumentException("Solo se diligencia 1 opcion ");
                 }
+
+
+                StringBuilder texto = new StringBuilder();
+
+                for (Contacto c : contactos) {
+                    texto.append("\nNombre: ").append(c.getNombre())
+                            .append("\nTeléfono: ").append(c.getTelefono())
+                            .append("\nCorreo: ").append(c.getCorreo())
+                            .append("\n------------------------\n");
+                }
+
+                JTextArea area = new JTextArea(texto.toString());
+                area.setEditable(false);
+
+                JScrollPane scroll = new JScrollPane(area);
+                scroll.setPreferredSize(new Dimension(350, 220));
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        scroll,
+                        "Contactos encontrados: ",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+
             } catch (NullPointerException e){
-                JOptionPane.showMessageDialog(null,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
 
             } catch (IllegalArgumentException e){
-                JOptionPane.showMessageDialog(null,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
 
             }
             catch (NoExisteException e) {
-                JOptionPane.showMessageDialog(null,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,e.getMessage(),"",JOptionPane.ERROR_MESSAGE);
             }
 
 

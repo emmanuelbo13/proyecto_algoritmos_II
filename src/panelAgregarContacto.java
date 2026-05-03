@@ -46,6 +46,7 @@ public class panelAgregarContacto  extends JPanel {
     private void guardarDatos() {
 
         try{
+
             if(txtNombre.getText().isEmpty()){
                 throw new NullPointerException("El nombre no puede estar vacio");
             }
@@ -58,6 +59,8 @@ public class panelAgregarContacto  extends JPanel {
                             "\nTeléfono: " + txtTelefono.getText() +
                             "\nCorreo: " + txtCorreo.getText()
             );
+            limpiarCampos();
+
 
         }catch (NullPointerException e){
             JOptionPane.showMessageDialog(
