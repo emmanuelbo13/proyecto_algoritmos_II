@@ -8,16 +8,13 @@ public class Directorio {
 
 
 
-    public String mostrarDirectorio(){
-        int posicion=1;
-        String mensaje="";
+    public ArrayList<Contacto>  obtenerContactos(){
+        ArrayList<Contacto> resultado = new ArrayList<>();
         for(Contacto C : personas){
-            mensaje= (mensaje + "\n"+posicion + ".  "+C.getNombre()+"\n"+
-                                "   Telefono: "+C.getTelefono()+"\n"+
-                                "   Correo: "+C.getCorreo()+"\n");
-            posicion++;
+            resultado.add(C);
+
         }
-        return mensaje;
+        return resultado;
     }
 
     public void agregarPersona(String name, String telefono, String correo){
@@ -25,38 +22,36 @@ public class Directorio {
 
     }
 
-    public String buscarPersonaNombre(String nombre) throws NoExisteException {
-        String mensaje="";
+    public ArrayList<Contacto> buscarPersonaNombre(String nombre) {
+        ArrayList<Contacto> resultado = new ArrayList<>();
+        if(nombre.isEmpty()){
+            return resultado;
+        }
+
         for (Contacto c : personas) {
-            if (c.getNombre().equals(nombre)) {
-                mensaje=mensaje+"\n Nombre: "+c.getNombre()+
-                        "\n Celular: "+c.getTelefono() +
-                        "\n Correo: "+ c.getCorreo();
-
-
-                return mensaje;
+            if (c.getNombre().trim().toLowerCase().startsWith(nombre.trim().toLowerCase())) {
+                resultado.add(c);
             }
 
         }
+        return resultado;
 
-        throw new NoExisteException("El usuario no existe");
     }
 
-    public String buscarPersonaNumero(String numero) throws NoExisteException {
-        String mensaje="";
+    public ArrayList<Contacto> buscarPersonaNumero(String numero) {
+        ArrayList<Contacto> resultado = new ArrayList<>();
+        if(numero.isEmpty()){
+            return resultado;
+        }
+
         for (Contacto c : personas) {
-            if (c.getTelefono().equals(numero)) {
-                mensaje=mensaje+"\n Nombre: "+c.getNombre()+
-                        "\n Celular: "+c.getTelefono() +
-                        "\n Correo: "+ c.getCorreo();
-
-
-                return mensaje;
+            if (c.getTelefono().startsWith(numero.trim())) {
+                resultado.add(c);
             }
 
         }
+        return resultado;
 
-        throw new NoExisteException("El usuario no existe");
     }
 
     public void odenarDirectorio(){
@@ -64,7 +59,7 @@ public class Directorio {
         for(int i=0;i<n-1;i++){
             for(int j=0;j<n-1;j++){
                 String Nombreactual=personas.get(j).getNombre();
-                String Nombresiguiente=personas.get(i+1).getNombre();
+                String Nombresiguiente=personas.get(j+1).getNombre();
                 if(Nombreactual.compareToIgnoreCase(Nombresiguiente)>0){
                     Contacto temp = personas.get(j);
                     personas.set(j, personas.get(j + 1));
