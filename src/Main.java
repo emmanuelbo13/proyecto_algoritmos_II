@@ -1,23 +1,28 @@
-import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
-public class Main{
-    static void main(String[] args) {
-        Scanner Consola = new Scanner(System.in);
-        Directorio agenda = new Directorio();
-        System.out.println("Bienvenido: Ingrese un nuevo conacto ");
-        System.out.println("Ingrese el nombre del contacto: ");
-        String name = Consola.nextLine();
-        System.out.println("Ingrese el telefono  del contacto con indicativo (+) :");
-        String telefono = Consola.nextLine();
-        System.out.println("Ingrese el correo  del contacto: ");
-        String correo = Consola.nextLine();
-        agenda.agregarPersona(name,telefono,correo);
-        agenda.mostrarDirectorio();
+/**
+ * Punto de entrada de la aplicación.
+ *
+ * Esta clase inicia la interfaz gráfica creando la ventana principal del
+ * directorio de contactos.
+ */
+public class Main {
 
+    /**
+     * Método principal del programa.
+     *
+     * SwingUtilities.invokeLater permite que la ventana se cree dentro del hilo
+     * de eventos de Swing, que es el lugar recomendado para construir y mostrar
+     * componentes gráficos.
+     *
+     * @param args argumentos recibidos desde consola, no usados en este proyecto.
+     */
+    public static void main(String[] args) {
 
-
-
-
+        SwingUtilities.invokeLater(() -> {
+            VentanaPrincipal ventana = new VentanaPrincipal();
+            ventana.setVisible(true);
+        });
 
     }
 }
