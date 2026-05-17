@@ -102,22 +102,36 @@ public class VentanaPrincipal extends JFrame{
             return;
         }
 
-        StringBuilder texto = new StringBuilder();
+        // StringBuilder texto = new StringBuilder();
+        JPanel panelLista = new JPanel();
+        panelLista.setLayout(new GridLayout(0,1,5,5));
 
-        // Se arma el texto que se mostrará en el cuadro de diálogo.
         for (Contacto c : agenda) {
-            texto.append("\nNombre: ").append(c.getNombre())
-                    .append("\nTeléfono: ").append(c.getTelefono())
-                    .append("\nCorreo: ").append(c.getCorreo())
-                    .append("\n------------------------\n");
+            // fila de contacto
+            JPanel fila = new JPanel(new BorderLayout(5,0));
+            // info del contacto
+            JLabel info = new JLabel("<html>" + c.getNombre() + " - " + c.getTelefono() + "<br>" + c.getCorreo() + "</html>");
+
+            JButton btnEliminar = new JButton("Eliminar");
+            JButton btnEditar = new JButton("Editar");
+            // panel de botones
+            JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            panelAcciones.add(btnEditar);
+            panelAcciones.add(btnEliminar);
+
+            fila.add(info, BorderLayout.CENTER);
+            fila.add(panelAcciones, BorderLayout.EAST);
+
+            fila.setPreferredSize(new Dimension(350,60));
+            panelLista.add(fila);
+
         }
 
-        // JTextArea permite mostrar varias líneas de texto de forma ordenada.
-        JTextArea area = new JTextArea(texto.toString());
-        area.setEditable(false);
+        JPanel contenedorNorte = new JPanel(new BorderLayout());
+        contenedorNorte.add(panelLista, BorderLayout.NORTH);
 
         // El scroll evita que la ventana crezca demasiado cuando hay muchos contactos.
-        JScrollPane scroll = new JScrollPane(area);
+        JScrollPane scroll = new JScrollPane(contenedorNorte);
         scroll.setPreferredSize(new Dimension(350, 220));
 
         JOptionPane.showMessageDialog(
