@@ -45,14 +45,14 @@ public class VentanaPrincipal extends JFrame{
         JButton btnAgregar = new JButton("Agregar contacto");
         JButton btnBuscar = new JButton("Buscar contacto");
         JButton btnMostrar = new JButton("Mostrar directorio");
-        JButton btnEliminar = new JButton("Eliminar contacto");
-        JButton btnSalir = new JButton("Salir");
+        //JButton btnEliminar = new JButton("Eliminar contacto");
+        //JButton btnSalir = new JButton("Salir");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(btnBuscar);
         panelBotones.add(btnMostrar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnSalir);
+        //panelBotones.add(btnEliminar);
+        //panelBotones.add(btnSalir);
 
         // Panel contenedor donde se cargan las vistas de agregar, buscar, etc.
         panelContenido = new JPanel(new BorderLayout());
@@ -64,7 +64,7 @@ public class VentanaPrincipal extends JFrame{
         btnAgregar.addActionListener(e -> cambiarPanel(new panelAgregarContacto(directorio)));
         btnBuscar.addActionListener(e -> cambiarPanel(new panelBuscarContacto(directorio)));
         btnMostrar.addActionListener(e -> mostrarDirectorio());
-        btnSalir.addActionListener(e -> dispose());
+        //btnSalir.addActionListener(e -> dispose());
 
 
 
@@ -114,6 +114,22 @@ public class VentanaPrincipal extends JFrame{
 
             JButton btnEliminar = new JButton("Eliminar");
             JButton btnEditar = new JButton("Editar");
+
+            btnEliminar.addActionListener(e -> {
+                int confirmarEliminacion = JOptionPane.showConfirmDialog(null, "Eliminar contacto?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                if (confirmarEliminacion==0){
+                    directorio.eliminarContacto(c);
+                }
+
+                // cerrar la ventana obsoleta
+                Window ventanaActual = SwingUtilities.getWindowAncestor(btnEliminar);
+                if (ventanaActual != null) {
+                    ventanaActual.dispose();
+                }
+                // mostrar de nuevo la ventana.
+                mostrarDirectorio();
+                System.out.println("Se eliminó un contacto" + agenda);}
+            );
             // panel de botones
             JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             panelAcciones.add(btnEditar);
@@ -125,7 +141,15 @@ public class VentanaPrincipal extends JFrame{
             fila.setPreferredSize(new Dimension(350,60));
             panelLista.add(fila);
 
+            // eliminar un contacto.
+
+
         }
+
+        for (Contacto c: agenda){
+            System.out.println(c.getNombre());
+        }
+        // System.out.println(agenda);
 
         JPanel contenedorNorte = new JPanel(new BorderLayout());
         contenedorNorte.add(panelLista, BorderLayout.NORTH);
