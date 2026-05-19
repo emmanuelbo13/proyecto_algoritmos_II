@@ -101,8 +101,7 @@ public class VentanaPrincipal extends JFrame{
             JOptionPane.showMessageDialog(this, "El directorio está vacío");
             return;
         }
-
-        // StringBuilder texto = new StringBuilder();
+        //
         JPanel panelLista = new JPanel();
         panelLista.setLayout(new GridLayout(0,1,5,5));
 
@@ -117,7 +116,7 @@ public class VentanaPrincipal extends JFrame{
 
             btnEliminar.addActionListener(e -> {
                 int confirmarEliminacion = JOptionPane.showConfirmDialog(null, "Eliminar contacto?", "Confirmar", JOptionPane.YES_NO_OPTION);
-                if (confirmarEliminacion==0){
+                if (confirmarEliminacion == 0) {
                     directorio.eliminarContacto(c);
                 }
 
@@ -128,8 +127,9 @@ public class VentanaPrincipal extends JFrame{
                 }
                 // mostrar de nuevo la ventana.
                 mostrarDirectorio();
-                System.out.println("Se eliminó un contacto" + agenda);}
-            );
+                // debugging print
+                System.out.println("Se eliminó un contacto" + agenda);
+            });
             // panel de botones
             JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             panelAcciones.add(btnEditar);
@@ -141,11 +141,8 @@ public class VentanaPrincipal extends JFrame{
             fila.setPreferredSize(new Dimension(350,60));
             panelLista.add(fila);
 
-            // eliminar un contacto.
-
-
         }
-
+        // debugging print
         for (Contacto c: agenda){
             System.out.println(c.getNombre());
         }
