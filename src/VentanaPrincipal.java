@@ -45,14 +45,14 @@ public class VentanaPrincipal extends JFrame{
         JButton btnAgregar = new JButton("Agregar contacto");
         JButton btnBuscar = new JButton("Buscar contacto");
         JButton btnMostrar = new JButton("Mostrar directorio");
-        JButton btnEliminar = new JButton("Eliminar contacto");
-        JButton btnSalir = new JButton("Salir");
+        //JButton btnEliminar = new JButton("Eliminar contacto");
+        //JButton btnSalir = new JButton("Salir");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(btnBuscar);
         panelBotones.add(btnMostrar);
-        panelBotones.add(btnEliminar);
-        panelBotones.add(btnSalir);
+        //panelBotones.add(btnEliminar);
+        //panelBotones.add(btnSalir);
 
         // Panel contenedor donde se cargan las vistas de agregar, buscar, etc.
         panelContenido = new JPanel(new BorderLayout());
@@ -64,7 +64,7 @@ public class VentanaPrincipal extends JFrame{
         btnAgregar.addActionListener(e -> cambiarPanel(new panelAgregarContacto(directorio)));
         btnBuscar.addActionListener(e -> cambiarPanel(new panelBuscarContacto(directorio)));
         btnMostrar.addActionListener(e -> mostrarDirectorio());
-        btnSalir.addActionListener(e -> dispose());
+        //btnSalir.addActionListener(e -> dispose());
 
 
 
@@ -102,22 +102,60 @@ public class VentanaPrincipal extends JFrame{
             return;
         }
 
-        StringBuilder texto = new StringBuilder();
+        // StringBuilder texto = new StringBuilder();
+        JPanel panelLista = new JPanel();
+        panelLista.setLayout(new GridLayout(0,1,5,5));
 
-        // Se arma el texto que se mostrará en el cuadro de diálogo.
         for (Contacto c : agenda) {
-            texto.append("\nNombre: ").append(c.getNombre())
-                    .append("\nTeléfono: ").append(c.getTelefono())
-                    .append("\nCorreo: ").append(c.getCorreo())
-                    .append("\n------------------------\n");
+            // fila de contacto
+            JPanel fila = new JPanel(new BorderLayout(5,0));
+            // info del contacto
+            JLabel info = new JLabel("<html>" + c.getNombre() + " - " + c.getTelefono() + "<br>" + c.getCorreo() + "</html>");
+
+            JButton btnEliminar = new JButton("Eliminar");
+            JButton btnEditar = new JButton("Editar");
+
+            btnEliminar.addActionListener(e -> {
+                int confirmarEliminacion = JOptionPane.showConfirmDialog(null, "Eliminar contacto?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                if (confirmarEliminacion==0){
+                    directorio.eliminarContacto(c);
+                }
+
+                // cerrar la ventana obsoleta
+                Window ventanaActual = SwingUtilities.getWindowAncestor(btnEliminar);
+                if (ventanaActual != null) {
+                    ventanaActual.dispose();
+                }
+                // mostrar de nuevo la ventana.
+                mostrarDirectorio();
+                System.out.println("Se eliminó un contacto" + agenda);}
+            );
+            // panel de botones
+            JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            panelAcciones.add(btnEditar);
+            panelAcciones.add(btnEliminar);
+
+            fila.add(info, BorderLayout.CENTER);
+            fila.add(panelAcciones, BorderLayout.EAST);
+
+            fila.setPreferredSize(new Dimension(350,60));
+            panelLista.add(fila);
+
+            // eliminar un contacto.
+
+
         }
 
-        // JTextArea permite mostrar varias líneas de texto de forma ordenada.
-        JTextArea area = new JTextArea(texto.toString());
-        area.setEditable(false);
+        for (Contacto c: agenda){
+            System.out.println(c.getNombre());
+        }
+        // System.out.println(agenda);
+
+        JPanel contenedorNorte = new JPanel(new BorderLayout());
+        contenedorNorte.add(panelLista, BorderLayout.NORTH);
 
         // El scroll evita que la ventana crezca demasiado cuando hay muchos contactos.
-        JScrollPane scroll = new JScrollPane(area);
+        JScrollPane scroll = new JScrollPane(contenedorNorte);
         scroll.setPreferredSize(new Dimension(350, 220));
 
         JOptionPane.showMessageDialog(

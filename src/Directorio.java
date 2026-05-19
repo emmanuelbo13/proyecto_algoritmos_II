@@ -47,6 +47,13 @@ public class Directorio {
     }
 
     /**
+     * eliminar contacto
+     */
+    public void eliminarContacto(Contacto contacto){
+        this.personas.remove(contacto);
+    }
+
+    /**
      * Agrega un nuevo contacto al directorio.
      *
      * Este método recibe los datos ya validados desde la interfaz y construye el
