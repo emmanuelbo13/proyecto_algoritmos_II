@@ -29,16 +29,22 @@ public class panelBuscarContacto  extends JPanel{
     public panelBuscarContacto(Directorio directorio) {
         this.directorio = directorio;
 
-        // Se define una cuadrícula simple para ubicar etiquetas, campos y botones.
-        setLayout(new GridLayout(3, 2));
 
-        setBorder(BorderFactory.createTitledBorder("Buscar contacto"));
+        // GridbagLayout permite alinear componentes de forma precisa en una cuadrícula dinámica utilizando restricciones detalladas
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //Parametros de configuracion de la ventana
+        // new Insets(x,x,x,x) son los espacios de las margenes que espera
+        gbc.insets = new Insets(10, 10, 10, 10);
+        //.anchor hace que los elementos se alineen hacia la izquierda dentro de su espacio.
+        gbc.anchor = GridBagConstraints.CENTER;
+
 
         JLabel nombre = new JLabel("Nombre:");
-        txtNombreaBuscar = new JTextField();
+        txtNombreaBuscar = new JTextField(20);
         JLabel telefono = new JLabel("Telefono:");
-        txtNumeroaBuscar = new JTextField();
-
+        txtNumeroaBuscar=new JTextField(20);
 
         JButton limpiar = new JButton("Limpiar");
         JButton buscar = new JButton("Buscar");
@@ -47,9 +53,38 @@ public class panelBuscarContacto  extends JPanel{
         limpiar.addActionListener(e -> limpiarCampos());
         buscar.addActionListener(e -> buscarContacto());
 
-        add(nombre);add(txtNombreaBuscar);
-        add(telefono);add(txtNumeroaBuscar);
-        add(buscar);add(limpiar);
+        //Fila 0
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(nombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        add(txtNombreaBuscar, gbc);
+
+        //Fila 1
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(telefono, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(txtNumeroaBuscar, gbc);
+
+        //Se crea un panel mas especifico para acomodar los botones
+        // FlowLayout nos permite colocar los componentes en una fila, uni tras otro
+
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        panelBotones.add(limpiar);
+        panelBotones.add(buscar);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        add(panelBotones, gbc);
+
 
     }
     /**

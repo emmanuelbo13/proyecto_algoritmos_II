@@ -32,7 +32,7 @@ public class VentanaPrincipal extends JFrame{
 
         // Configuración básica del JFrame principal.
         setTitle("Direciorio de contactos");
-        setSize(500,350);
+        setSize(450,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
