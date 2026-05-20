@@ -43,26 +43,76 @@ public class panelAgregarContacto  extends JPanel {
     public panelAgregarContacto(Directorio directorio){
         this.directorio= directorio;
 
-        // GridLayout organiza los componentes en filas y columnas uniformes.
-        setLayout(new GridLayout(4, 2));
+        // GridbagLayout permite alinear componentes de forma precisa en una cuadrícula dinámica utilizando restricciones detalladas
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //Parametros de configuracion de la ventana
+        // new Insets(x,x,x,x) son los espacios de las margenes que espera
+        gbc.insets = new Insets(10, 10, 10, 10);
+        //.anchor hace que los elementos se alineen hacia la izquierda dentro de su espacio.
+        gbc.anchor = GridBagConstraints.CENTER;
+
+
         JLabel nombre = new JLabel("Nombre:");
-        txtNombre = new JTextField();
+        txtNombre = new JTextField(20);
         JLabel telefono = new JLabel("Telefono:");
-        txtTelefono=new JTextField();
+        txtTelefono=new JTextField(20);
         JLabel correo = new JLabel("Correo:");
-        txtCorreo=new JTextField();
+        txtCorreo=new JTextField(20);
+
+        //Fila 0
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(nombre, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        add(txtNombre, gbc);
+
+        //Fila 1
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(telefono, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(txtTelefono, gbc);
+
+        //Fila2
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(correo, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        add(txtCorreo, gbc);
+
 
         JButton limpiar = new JButton("Limpiar");
         JButton guardar = new JButton("Guardar");
+
 
         // El botón limpiar borra los campos; el botón guardar valida y registra.
         limpiar.addActionListener(e -> limpiarCampos());
         guardar.addActionListener(e -> guardarDatos());
 
-        add(nombre);add(txtNombre);
-        add(telefono);add(txtTelefono);
-        add(correo);add(txtCorreo);
-        add(limpiar);add(guardar);
+
+        //Se crea un panel mas especifico para acomodar los botones
+        // FlowLayout nos permite colocar los componentes en una fila, uni tras otro
+
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        panelBotones.add(limpiar);
+        panelBotones.add(guardar);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        add(panelBotones, gbc);
+
+
 
     }
 
