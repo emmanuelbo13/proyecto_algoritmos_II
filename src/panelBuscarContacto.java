@@ -108,6 +108,16 @@ public class panelBuscarContacto  extends JPanel{
                                 ventanaActual.dispose();
                             }
                         }
+
+                    });
+
+                    btnEditar.addActionListener(e->{
+                        // cerrar la ventana obsoleta
+                        Window ventanaActual = SwingUtilities.getWindowAncestor(btnEditar);
+                        if (ventanaActual != null) {
+                            ventanaActual.dispose();
+                        }
+                        new VentanaEditarContacto(c);
                     });
 
                     JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));

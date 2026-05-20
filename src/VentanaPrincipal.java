@@ -130,6 +130,16 @@ public class VentanaPrincipal extends JFrame{
                 // debugging print
                 System.out.println("Se eliminó un contacto" + agenda);
             });
+
+            btnEditar.addActionListener(e->{
+                // cerrar la ventana obsoleta
+                Window ventanaActual = SwingUtilities.getWindowAncestor(btnEditar);
+                if (ventanaActual != null) {
+                    ventanaActual.dispose();
+                }
+                // mostrarDirectorio();
+                new VentanaEditarContacto(c);
+            });
             // panel de botones
             JPanel panelAcciones = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             panelAcciones.add(btnEditar);
